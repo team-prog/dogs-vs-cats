@@ -24,11 +24,16 @@ from torch.utils.data.sampler import SubsetRandomSampler
 
 #Constructor para el Dataset basado en las imágenes
 # class Cifar10Dataset(torch.utils.data.Dataset):
+
+labels = {'label': ['cat', 'dog'] }
+labels_encoder = LabelEncoder()
+number_labels = labels_encoder.fit_transform(labels['label'])
+
 class DogsVsCatsDataset(torch.utils.data.Dataset):
     #data_dir: El directorio del que se leerán las imágenes
     #label_source: De dónde se obtendrán las etiquetas
     #data_size: Cuantos archivos usar (0 = todos)
-    def __init__(self, data_dir, label_source, data_size = 0):
+    def __init__(self, data_dir, label_source = number_labels, data_size = 0):
         files = os.listdir(data_dir)
         files = [os.path.join(data_dir,x) for x in files]
         if data_size < 0 or data_size > len(files):
@@ -47,9 +52,9 @@ class DogsVsCatsDataset(torch.utils.data.Dataset):
         pil_image = Image.open(image_address)
         # transformation = transforms.Resize((32, 32))
         transformation = transforms.Compose([
-            transforms.Resize((300, 300)),
-            transforms.RandomResizedCrop(256),
-            transforms.CenterCrop(64)
+            transforms.Resize((256, 256)),
+            transforms.RandomResizedCrop(64),
+            # transforms.CenterCrop(64)
         ])
         resized_image = transformation(pil_image)
         numpy_array_image = np.array(resized_image)

@@ -78,15 +78,3 @@ def check_cnn(cnn, testloader):
   for i in range(2):
     print('Accuracy of %5s : %2d %%' % (
         classes[i], 100 * class_correct[i] / class_total[i]))
-
-def show_image(dataset, image_number):
-    image, label = dataset[image_number]
-    image = image.numpy()
-    image = image.transpose(1,2,0)
-    plt.imshow(image)
-    plt.show(block=False)
-    print("empezando...")
-    plt.pause(3)
-    print("sleep 1")
-    plt.close()
-    show_image(dataset, image_number+1)
