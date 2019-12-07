@@ -49,21 +49,17 @@ train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size,
 test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=batch_size, shuffle=False, num_workers=0)
 
 ## TRAIN and SAVE the CNN
-# train_cnn(epochs, cnn, criterion, train_loader, optimizer)
+train_cnn(epochs, cnn, criterion, train_loader, optimizer)
 # cnn.save(PATH_TO_SAVE)
 
 ## LOAD previous cnn
 # cnn.load(PATH_TO_SAVE)
 
 ## TEST the CNN
-# test_cnn(cnn, test_loader)
+test_cnn(cnn, test_loader)
 
 # ## CHECK the CNN
-# check_cnn(cnn, test_loader)
+check_cnn(cnn, test_loader)
 
-image_number = randrange(0, len(dataset) - 1)
-# image_path, label = fetch_image(dataset, image_number)
-# print("fetched")
-# scaled_image = scale_image(image_path)
-# print("scaled")
-show_image(dataset, image_number)
+# image_number = randrange(0, len(dataset) - 1)
+# show_image(dataset, image_number)

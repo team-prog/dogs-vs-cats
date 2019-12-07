@@ -45,11 +45,10 @@ class DogsVsCatsDataset(torch.utils.data.Dataset):
     def __getitem__(self, idx):
         image_address = self.files[idx]
         pil_image = Image.open(image_address)
-        # transformation = transforms.Resize((1024, 1024))
+        # transformation = transforms.Resize((32, 32))
         transformation = transforms.Compose([
             transforms.Resize((300, 300)),
-            # transforms.CenterCrop(224)
-            transforms.RandomResizedCrop(224)
+            transforms.RandomResizedCrop(256)
         ])
         resized_image = transformation(pil_image)
         numpy_array_image = np.array(resized_image)

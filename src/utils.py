@@ -86,7 +86,7 @@ def show_image(dataset, image_number):
     plt.imshow(image)
     plt.show(block=False)
     print("empezando...")
-    sleep(2)
+    plt.pause(3)
     print("sleep 1")
     plt.close()
     show_image(dataset, image_number+1)
