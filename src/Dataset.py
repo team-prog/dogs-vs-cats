@@ -48,7 +48,8 @@ class DogsVsCatsDataset(torch.utils.data.Dataset):
         # transformation = transforms.Resize((32, 32))
         transformation = transforms.Compose([
             transforms.Resize((300, 300)),
-            transforms.RandomResizedCrop(256)
+            transforms.RandomResizedCrop(256),
+            transforms.CenterCrop(64)
         ])
         resized_image = transformation(pil_image)
         numpy_array_image = np.array(resized_image)
