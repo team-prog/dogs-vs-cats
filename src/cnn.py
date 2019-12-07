@@ -10,7 +10,7 @@ class CNN(nn.Module):
         self.conv2 = nn.Conv2d(32, 64, 5) # Kerkel (filter 2) of 5x5 with input of 6 and output of 16
         self.fc1 = nn.Linear(64 * 5 * 5, 120)
         self.fc2 = nn.Linear(120, 84)
-        self.fc3 = nn.Linear(84, 10) # Change this one by max soft ?
+        self.fc3 = nn.Linear(84, 2) # Change this one by max soft ?
 
     def forward(self, x):
         # First Layer:  x => filter 1 + Relu => max pool
@@ -23,7 +23,7 @@ class CNN(nn.Module):
         x = x.view(-1, 64 * 5 * 5)
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
-        x = self.fc3(x)
+        x = F.softmax(self.fc3(x), 1)
         return x
 
     def save(self, path):
