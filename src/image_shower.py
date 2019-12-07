@@ -45,9 +45,9 @@ class DogsVsCatsDataset(torch.utils.data.Dataset):
     def __getitem__(self, idx):
         image_address = self.files[idx]
         pil_image = Image.open(image_address)
-        resize = transforms.Resize(1024)
+        # resize = transforms.Resize(1024)
         
-        resized_image = resize(pil_image)
+        resized_image = transforms.RandomCrop(32)(pil_image)
         
         
         

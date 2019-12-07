@@ -58,8 +58,8 @@ def test_cnn(cnn, testloader):
 
 
 def check_cnn(cnn, testloader):
-  class_correct = list(0. for i in range(10))
-  class_total = list(0. for i in range(10))
+  class_correct = list(0. for i in range(2))
+  class_total = list(0. for i in range(2))
   with torch.no_grad():
     for data in testloader:
         images, labels = data
@@ -71,6 +71,6 @@ def check_cnn(cnn, testloader):
             class_correct[label] += c[i].item()
             class_total[label] += 1
 
-  for i in range(10):
+  for i in range(2):
     print('Accuracy of %5s : %2d %%' % (
         classes[i], 100 * class_correct[i] / class_total[i]))

@@ -37,7 +37,7 @@ labels = {'label': ['cat', 'dog'] }
 labels_encoder = LabelEncoder()
 number_labels = labels_encoder.fit_transform(labels['label'])
 
-dataset = DogsVsCatsDataset(data_dir = datset_file, data_size = 100, label_source = number_labels)
+dataset = DogsVsCatsDataset(data_dir = datset_file, data_size = 0, label_source = number_labels)
 
 train_size = int((1 - test_proportion) * len(dataset))
 test_size = len(dataset) - train_size
