@@ -9,6 +9,8 @@ __pycache__/
 # Distribution / packaging
 .Python
 build/
+src/train/
+src/dogs-vs-cats-redux-kernels-edition/
 develop-eggs/
 dist/
 downloads/
@@ -102,3 +104,5 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+src/.DS-Store

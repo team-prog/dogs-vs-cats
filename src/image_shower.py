@@ -14,11 +14,11 @@ from torch.utils.data.sampler import SubsetRandomSampler
 #dir_imagenes: Directorio donde están las imágenes extraídas del 7zip de Kaggle
 #(Las que valen son las de TRAIN, que son aquellas que tienen las etiquetas en 
 # el archivo trainLabels.csv)
-dir_imagenes = 'train/'
+# dir_imagenes = 'train/'
 #cant_archivos: Cuantos archivos del repositorio usar.
 #El valor 0 significa usar todos.
 #Se puede poner un número arbitrario para pruebas
-cant_archivos = 0
+# cant_archivos = 0
 #ruta_trainlabels: Ruta del archivo trainLabels.csv (relativa a donde está este .py)
 # ruta_trainlabels = 'trainLabels.csv'
 
@@ -76,32 +76,32 @@ class DogsVsCatsDataset(torch.utils.data.Dataset):
 
 #Levantamos los labels del archivo csv
 # labels = pd.read_csv(ruta_trainlabels)
-labels = {'label': ['cat', 'dog'] }
+# labels = {'label': ['cat', 'dog'] }
 
-#Lo transformamos a números con un labelEncoder
-#labels_encoder es importante: Es el que me va a permitir revertir la 
-#transformación para conocer el nombre de una etiqueta numérica
-labels_encoder = LabelEncoder()
-labels_numeros=labels_encoder.fit_transform(labels['label'])
+# #Lo transformamos a números con un labelEncoder
+# #labels_encoder es importante: Es el que me va a permitir revertir la 
+# #transformación para conocer el nombre de una etiqueta numérica
+# labels_encoder = LabelEncoder()
+# labels_numeros=labels_encoder.fit_transform(labels['label'])
 
-#Generamos el DataSet con nuestros datos de entrenamiento
-# cifar_dataset = Cifar10Dataset(data_dir = dir_imagenes, data_size = cant_archivos, label_source = labels_numeros)
-cifar_dataset = DogsVsCatsDataset(data_dir = dir_imagenes, data_size = cant_archivos, label_source=labels_numeros)
+# #Generamos el DataSet con nuestros datos de entrenamiento
+# # cifar_dataset = Cifar10Dataset(data_dir = dir_imagenes, data_size = cant_archivos, label_source = labels_numeros)
+# cifar_dataset = DogsVsCatsDataset(data_dir = dir_imagenes, data_size = cant_archivos, label_source=labels_numeros)
 
 ##Antes de pasar a la separación en datos de training y test, podemos verificar
 ##que estamos levantando las imágenes de manera correcta. Defino una función que
 ##dado un número toma la imágen en esa posición del dataset (Ojo, recordar que
 ##está mezclado), y grafica la imágen junto con su etiqueta.
-def mostrarImagen(dataset, nroImagen, encoder):
-    imagen, etiqueta = dataset[nroImagen]
-    #Se regresa la imágen a formato numpy
-    #Es necesario trasponer la imágen para que funcione con imshow
-    #(imshow espera 3xNxM)
-    imagen = imagen.numpy()
-    imagen = imagen.transpose(1,2,0)
-    plt.imshow(imagen)
-    #Recupero la etiqueta de la imágen usando el encoder
-    plt.title(labels_encoder.inverse_transform([etiqueta])[0])
+# def mostrarImagen(dataset, nroImagen, encoder):
+#     imagen, etiqueta = dataset[nroImagen]
+#     #Se regresa la imágen a formato numpy
+#     #Es necesario trasponer la imágen para que funcione con imshow
+#     #(imshow espera 3xNxM)
+#     imagen = imagen.numpy()
+#     imagen = imagen.transpose(1,2,0)
+#     plt.imshow(imagen)
+#     #Recupero la etiqueta de la imágen usando el encoder
+#     plt.title(labels_encoder.inverse_transform([etiqueta])[0])
 
-mostrarImagen(cifar_dataset, 10, labels_encoder)
-plt.show()
+# mostrarImagen(cifar_dataset, 10, labels_encoder)
+# plt.show()
