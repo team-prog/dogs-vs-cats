@@ -108,3 +108,4 @@ venv.bak/
 src/.DS-Store
 
 *.DS_Store
+.vscode/
