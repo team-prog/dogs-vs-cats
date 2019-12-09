@@ -2,6 +2,7 @@ import torch
 import numpy as np
 import torchvision
 import matplotlib.pyplot as plt
+from random import randrange
 import PIL.Image as Image
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import confusion_matrix
@@ -11,10 +12,11 @@ from time import sleep
 
 classes = ('cat', 'dog')
 
-def imshow(img):
+def imshow(img, title=None):
     img = img / 2 + 0.5     # unnormalize
     npimg = img.numpy()
     plt.imshow(np.transpose(npimg, (1, 2, 0)))
+    plt.title(title)
     plt.show()
 
 def show_random(loader):
@@ -80,6 +82,12 @@ def check_cnn(cnn, testloader):
     print('Accuracy of %5s : %2d %%' % (
         classes[i], 100 * class_correct[i] / class_total[i]))
 
+
+def make_random_prediction(cnn, test_loader):
+    images, labels = iter(test_loader).next()
+    _, predicted = torch.max(cnn(images), 1)
+    imshow(images[0], classes[predicted[0]])
+
 def show_statistics(cnn, test_loader):
   show_confusion_matrix(cnn, test_loader)
 
@@ -94,8 +102,6 @@ def labels(test_loader):
 
 def show_confusion_matrix(cnn, test_loader):
   cnn.eval()
-  labels_encoder = LabelEncoder()
-  labels_encoder.fit_transform(labels(test_loader))
   inputs = list()
   outputs = list()
   for _, tensor in enumerate(test_loader):   
@@ -109,8 +115,8 @@ def show_confusion_matrix(cnn, test_loader):
   plt.imshow(cm, interpolation="nearest", cmap=plt.cm.Blues)
   plt.colorbar()
   tick_marks = np.arange(2)
-  plt.xticks(tick_marks, labels_encoder.inverse_transform(range(2)), rotation=45)
-  plt.yticks(tick_marks, labels_encoder.inverse_transform(range(2)))
+  plt.xticks(tick_marks, classes, rotation=45)
+  plt.yticks(tick_marks, classes)
   plt.xlabel("The model prediction")
   plt.ylabel("Real value")
   plt.show()

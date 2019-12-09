@@ -3,7 +3,7 @@ import torch
 import torchvision
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import LabelEncoder
-from utils import imshow, show_random, train_cnn, test_cnn, check_cnn, show_statistics
+from utils import imshow, show_random, train_cnn, test_cnn, check_cnn, show_statistics, make_random_prediction
 from Dataset import DogsVsCatsDataset
 from cnn import CNN
 from time import time
