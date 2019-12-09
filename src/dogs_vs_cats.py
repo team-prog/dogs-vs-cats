@@ -3,6 +3,7 @@ import torch
 import torchvision
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import LabelEncoder
+from csv_generator import generate
 from utils import imshow, show_random, train_cnn, test_cnn, check_cnn, show_statistics, make_random_prediction
 from Dataset import DogsVsCatsDataset
 from cnn import CNN
@@ -50,12 +51,12 @@ train_dataset, test_dataset = torch.utils.data.random_split(dataset, [train_size
 train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=False, num_workers=0)
 test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=batch_size, shuffle=False, num_workers=0)
 
-## TRAIN and SAVE the CNN
-# train_cnn(epochs, cnn, criterion, train_loader, optimizer, batch_rate)
-# cnn.save(PATH_TO_SAVE)
-
 ## LOAD previous cnn
-cnn.load(PATH_TO_LOAD)
+# cnn.load(PATH_TO_LOAD)
+
+## TRAIN and SAVE the CNN
+train_result = train_cnn(epochs, cnn, criterion, train_loader, optimizer, batch_rate)
+cnn.save(PATH_TO_SAVE)
 
 ## TEST the CNN
 test_cnn(cnn, test_loader)
@@ -64,4 +65,10 @@ test_cnn(cnn, test_loader)
 check_cnn(cnn, test_loader)
 
 ## Show the respective graphs
-show_statistics(cnn, test_loader)
+show_statistics(cnn, test_loader, train_result)
+
+## Generate the scv with test data
+generate(cnn)
+
+## Make random prediction with the cnn
+# make_random_prediction(cnn, test_loader)

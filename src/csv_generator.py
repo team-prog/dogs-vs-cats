@@ -4,10 +4,10 @@ import csv
 from cnn import CNN
 
 TEST_PATH = './dogs-vs-cats-redux-kernels-edition/test'
-CNN_NAME = 'dogs_vs_cats_net_83_61_72'
+CNN_NAME = 'dogs_vs_cats_net_83_53_68'
 CNN_PATH = './' + CNN_NAME + '.pth'
 CSV_NAME = CNN_NAME + '_test_outputs.csv'
-CSV_PATH = './' + CSV_NAME
+CSV_PATH = './csvs/' + CSV_NAME
 
 def generate(cnn):
   batch_size = 4
@@ -24,6 +24,6 @@ def generate(cnn):
       for j in range(batch_size):
         writer.writerow({'id': i + j, 'label': predicted[j].item()})
 
-cnn = CNN()
-cnn.load(CNN_PATH)
-generate(cnn)
+# cnn = CNN()
+# cnn.load(CNN_PATH)
+# generate(cnn)

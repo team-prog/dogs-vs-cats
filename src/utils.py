@@ -27,6 +27,8 @@ def show_random(loader):
   print(' '.join('%5s' % classes[labels[j]] for j in range(4)))
 
 def train_cnn(epochs, cnn, criterion, trainloader, optimizer, batch_rate):
+  epoch_nums = []
+  training_loss = []
   for epoch in range(epochs):  # loop over the dataset multiple times
     running_loss = 0.0
     for i, data in enumerate(trainloader, 0):
@@ -44,10 +46,15 @@ def train_cnn(epochs, cnn, criterion, trainloader, optimizer, batch_rate):
 
       # print statistics
       running_loss += loss.item()
+
+      epoch_nums.append(epoch)
+      training_loss.append(running_loss)
+
       if i % batch_rate == 0:
         print('[epoch: %d, iteration: %5d] loss: %.3f' % (epoch, i, running_loss / batch_rate))
         running_loss = 0.0
   print('Finished Training')
+  return (epoch_nums, training_loss)
 
 def test_cnn(cnn, testloader):
   correct = 0
@@ -84,13 +91,13 @@ def check_cnn(cnn, testloader):
 
 
 def make_random_prediction(cnn, test_loader):
-    images, labels = iter(test_loader).next()
+    images, _ = iter(test_loader).next()
     _, predicted = torch.max(cnn(images), 1)
     imshow(images[0], classes[predicted[0]])
 
-def show_statistics(cnn, test_loader):
+def show_statistics(cnn, test_loader, train_result):
+  show_losses_graph(cnn, test_loader, train_result)
   show_confusion_matrix(cnn, test_loader)
-
 
 def labels(test_loader):
   res = []
@@ -119,4 +126,12 @@ def show_confusion_matrix(cnn, test_loader):
   plt.yticks(tick_marks, classes)
   plt.xlabel("The model prediction")
   plt.ylabel("Real value")
+  plt.show()
+
+def show_losses_graph(cnn, test_loader, train_result):
+  epoch_nums, training_loss = train_result
+  plt.plot(epoch_nums, training_loss)
+  plt.xlabel('epoch')
+  plt.ylabel('loss')
+  plt.legend(['training'], loc='upper right')
   plt.show()
