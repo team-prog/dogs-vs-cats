@@ -12,7 +12,7 @@ import torch
 from torch import nn, optim
 
 ######## Constants #########
-datset_file = './src/train/'
+datset_file = './train/'
 
 test_proportion = .2
 data_size = 0
