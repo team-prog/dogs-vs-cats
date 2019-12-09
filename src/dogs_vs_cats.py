@@ -12,7 +12,7 @@ import torch
 from torch import nn, optim
 
 ######## Constants #########
-datset_file = './train'
+datset_file = './src/train/'
 
 test_proportion = .2
 data_size = 0
@@ -28,7 +28,7 @@ cnn = CNN()
 batch_size = 4
 
 epochs = 10
-
+batch_rate = 1000
 learning_rate = 0.001
 
 momentum = 0.9
@@ -51,7 +51,7 @@ train_loader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size,
 test_loader = torch.utils.data.DataLoader(test_dataset, batch_size=batch_size, shuffle=False, num_workers=0)
 
 ## TRAIN and SAVE the CNN
-# train_cnn(epochs, cnn, criterion, train_loader, optimizer)
+# train_cnn(epochs, cnn, criterion, train_loader, optimizer, batch_rate)
 # cnn.save(PATH_TO_SAVE)
 
 ## LOAD previous cnn
